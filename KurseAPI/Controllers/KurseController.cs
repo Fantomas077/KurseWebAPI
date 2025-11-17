@@ -1,4 +1,5 @@
 ﻿using KurseAPI.Models;
+using KurseAPI.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KurseAPI.Controllers
@@ -43,33 +44,37 @@ namespace KurseAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Kurse kurse)
+        public IActionResult Post([FromForm] Kurse kurse)
         {
             var exist = KurseListe.Find(x => x.Id == kurse.Id);
             if (exist != null)
             {
-                return BadRequest("diese kurse existiert schon");
+                return BadRequest("Dieser Kurs existiert bereits.");
             }
-            KurseListe.Add(kurse);
-            return Created($"/api/kurse/{kurse.Id}", kurse);
 
-
-        }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var pos = KurseListe.Find(x => x.Id == id);
-            if (pos != null)
+            if (kurse.Image != null)
             {
-                KurseListe.Remove(pos);
-                return Ok($"{pos.Name} wurde erfolgreich gelöscht");
+                if (!UploadFiles.TestImage(kurse.Image))
+                {
+                    return BadRequest("Nur Bilddateien erlaubt (.jpg, .png, .gif).");
+                }
+
+                kurse.ImageUrl = UploadFiles.WriteFiles(kurse.Image);
             }
-            return NotFound("wurde nicht gefunden");
 
 
+
+
+
+
+            KurseListe.Add(kurse);
+
+
+            return CreatedAtAction(nameof(Get), new { id = kurse.Id }, kurse);
         }
+
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Kurse kurse)
+        public IActionResult Put(int id, [FromForm] Kurse kurse)
         {
             var pos = KurseListe.Find(x => x.Id == id);
             if (pos != null)
@@ -77,10 +82,17 @@ namespace KurseAPI.Controllers
                 pos.Name = kurse.Name;
                 pos.Score = kurse.Score;
                 pos.Description = kurse.Description;
+                if (kurse.Image != null)
+                {
+                    if (!UploadFiles.TestImage(kurse.Image))
+                        return BadRequest("Nur Bilddateien erlaubt (.jpg, .png, .gif).");
+
+                    pos.ImageUrl = UploadFiles.WriteFiles(kurse.Image);
+                }
                 return Ok("Der Kurse Wurde erfolgreich updated");
 
             }
-            return NotFound("wurde nicht gefunden");
+            return NotFound("Kurs wurde nicht gefunden");
 
         }
 
