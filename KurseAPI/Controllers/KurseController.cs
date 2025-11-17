@@ -43,6 +43,15 @@ namespace KurseAPI.Controllers
             return Ok(pos);
         }
 
+
+        [HttpGet("[action]/{id}")]
+        public IActionResult KurseScore(int id)
+        {
+
+            return Ok();
+        }
+
+
         [HttpPost]
         public IActionResult Post([FromForm] Kurse kurse)
         {
