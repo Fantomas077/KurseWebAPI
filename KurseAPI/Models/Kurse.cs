@@ -12,5 +12,9 @@ namespace KurseAPI.Models
         [MaxLength(50, ErrorMessage = "Max 20 Charakter")]
         [Required]
         public string Description { get; set; }
+        public IFormFile Image { get; set; }
+        public string ImageUrl { get; set; }
+
+
     }
 }
