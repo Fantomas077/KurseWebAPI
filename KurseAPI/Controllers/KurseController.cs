@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KurseAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json", "application/xml", Type = typeof(List<string>))]
     [ApiController]
     public class KurseController : ControllerBase
     {
