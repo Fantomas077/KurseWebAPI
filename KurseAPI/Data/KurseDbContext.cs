@@ -8,4 +8,9 @@ public class KurseDbContext : DbContext
     }
 
     public DbSet<Kurse> Kurses { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Adresse> Adresses { get; set; }
+    public DbSet<Kauf> Käufe { get; set; }
+
+
 }

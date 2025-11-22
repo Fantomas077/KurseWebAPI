@@ -20,6 +20,7 @@ namespace KurseAPI.Models
         [Required]
         public float Price { get; set; }
 
+        public List<Kauf> Käufe { get; set; }
 
     }
 }
