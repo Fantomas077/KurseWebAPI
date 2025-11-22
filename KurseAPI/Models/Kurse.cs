@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KurseAPI.Models
 {
@@ -12,8 +13,12 @@ namespace KurseAPI.Models
         [MaxLength(50, ErrorMessage = "Max 20 Charakter")]
         [Required]
         public string Description { get; set; }
+        [NotMapped]
         public IFormFile Image { get; set; }
         public string? ImageUrl { get; set; }
+
+        [Required]
+        public float Price { get; set; }
 
 
     }
