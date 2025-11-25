@@ -5,6 +5,7 @@ namespace KurseAPI.Models
 {
     public class Kurse
     {
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Name is pflicht")]
         public string Name { get; set; }
@@ -20,7 +21,13 @@ namespace KurseAPI.Models
         [Required]
         public float Price { get; set; }
 
-        public List<Kauf> Käufe { get; set; }
+        public List<Kauf>? Käufe { get; set; }
+
+        public List<Language>? Language { get; set; }
 
     }
+
+
+
+
 }

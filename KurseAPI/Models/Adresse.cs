@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KurseAPI.Models
 {
     public class Adresse
     {
+        [Key]
         public int Id { get; set; }
 
         public string Stadt { get; set; }

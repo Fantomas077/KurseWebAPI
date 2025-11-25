@@ -1,8 +1,10 @@
 ﻿using KurseAPI.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 public class Kauf
 {
+    [Key]
     public int Id { get; set; }
     public float Price { get; set; }
     public DateTime Datum { get; set; }
